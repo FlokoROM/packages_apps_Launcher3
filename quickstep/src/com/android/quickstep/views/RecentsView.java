@@ -38,7 +38,6 @@ import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
@@ -248,7 +247,7 @@ public abstract class RecentsView<T extends BaseActivity> extends PagedView impl
     private ArraySet<TaskView> mIgnoreResetTaskViews = new ArraySet<>();
 
     // Variables for empty state
-    private final AnimatedVectorDrawable mEmptyIcon;
+    private final Drawable mEmptyIcon;
     private final CharSequence mEmptyMessage;
     private final TextPaint mEmptyMessagePaint;
     private final Point mLastMeasureSize = new Point();
@@ -285,7 +284,7 @@ public abstract class RecentsView<T extends BaseActivity> extends PagedView impl
                 .getDimensionPixelSize(R.dimen.task_thumbnail_top_margin);
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
 
-        mEmptyIcon = (AnimatedVectorDrawable) context.getDrawable(R.drawable.ic_empty_recents);
+        mEmptyIcon = context.getDrawable(R.drawable.ic_empty_recents);
         mEmptyIcon.setCallback(this);
         mEmptyMessage = context.getText(R.string.recents_empty_message);
         mEmptyMessagePaint = new TextPaint();
@@ -1154,9 +1153,6 @@ public abstract class RecentsView<T extends BaseActivity> extends PagedView impl
             int left = (mLastMeasureSize.x - mEmptyIcon.getIntrinsicWidth()) / 2;
             mEmptyIcon.setBounds(left, top, left + mEmptyIcon.getIntrinsicWidth(),
                     top + mEmptyIcon.getIntrinsicHeight());
-            if (mEmptyIcon instanceof AnimatedVectorDrawable) {
-                ((AnimatedVectorDrawable) mEmptyIcon).start();
-            }
         }
     }
 
