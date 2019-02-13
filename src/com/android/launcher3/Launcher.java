@@ -365,6 +365,12 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
     }
 
     @Override
+    public void onEnterAnimationComplete() {
+        super.onEnterAnimationComplete();
+        UiFactory.onEnterAnimationComplete(this);
+    }
+
+    @Override
     public void onConfigurationChanged(Configuration newConfig) {
         int diff = newConfig.diff(mOldConfig);
         if ((diff & (CONFIG_ORIENTATION | CONFIG_SCREEN_SIZE)) != 0) {
@@ -2522,6 +2528,7 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
                     client.getEventInfo().parse("setClientOptions ", client.mFlags);
                 }
             }
+            LauncherAppState.getInstanceNoCreate().setNeedsRestart();
         }
         if (KEY_HOMESCREEN_DT_GESTURES.equals(key)) {
             mWorkspace.setGestures(Integer.valueOf(sharedPreferences.getString("KEY_HOMESCREEN_DT_GESTURES", "0")));
